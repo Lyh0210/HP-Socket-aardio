@@ -1,0 +1,19 @@
+﻿import aaz.libhpsocket.listener.agent;
+import aaz.libhpsocket.ssl.component.tcpPackAgent;
+
+var _dll = aaz.libhpsocket._dll;
+
+namespace aaz.libhpsocket.ssl.listener;
+class tcpPackAgent{
+	ctor(){
+		this = ..aaz.libhpsocket.listener.agent("ssl.component.tcpPackAgent");
+		this.pListener = _dll.Create_HP_TcpPackAgentListenerP();
+	}
+
+	destroy = function(){
+		if(this.pListener){
+			_dll.Destroy_HP_TcpPackAgentListener(this.pListener);
+			this.pListener = null;
+		}
+	}
+}

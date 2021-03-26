@@ -1,0 +1,31 @@
+﻿import util.metaProperty;
+import aaz.libhpsocket.component.properties.httpServer;
+
+var _dll = aaz.libhpsocket._dll;
+
+namespace aaz.libhpsocket.component;
+class httpServer{
+	ctor(pSocket, pListener){
+		if(pSocket){
+			this.pSocket = pSocket;
+		}
+		elseif(type(pListener) == type.pointer){
+			this.pSocket = _dll.Create_HP_HttpServerP(pListener);
+			..table.gc(this, "destroy");
+		}
+		else {
+			error("请指定参数@1 pSocket 或参数@2 pListener", 2);
+		}
+	}
+	
+	destroy = function(){
+		if(this.pSocket){
+			_dll.Destroy_HP_HttpServer(this.pSocket);
+			this.pSocket = null;
+		}
+	}
+	
+	@_metaProperty;
+}
+
+httpServer._metaProperty = ..util.metaProperty(..aaz.libhpsocket.component.properties.httpServer);

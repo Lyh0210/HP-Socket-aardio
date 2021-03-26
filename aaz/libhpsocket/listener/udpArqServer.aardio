@@ -1,0 +1,20 @@
+﻿import aaz.libhpsocket.listener.server;
+import aaz.libhpsocket.component.udpArqServer;
+
+var _dll = aaz.libhpsocket._dll;
+
+namespace aaz.libhpsocket.listener;
+class udpArqServer{
+	ctor(){
+		this = ..aaz.libhpsocket.listener.server("component.udpArqServer");
+		this.pListener = _dll.Create_HP_UdpArqServerListenerP(); 
+		this.componentClass = ..aaz.libhpsocket.component.udpArqServer; 
+	}
+
+	destroy = function(){
+		if(this.pListener){
+			_dll.Destroy_HP_UdpArqServerListener(this.pListener);
+			this.pListener = null;
+		}
+	}
+}

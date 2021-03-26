@@ -1,0 +1,81 @@
+﻿//listener 监听器
+namespace aaz.libhpsocket;
+class listener{
+	ctor(componentClassName){
+		this.componentClassPath = "aaz.libhpsocket." ++ componentClassName;
+		this.components = {};
+		
+		..table.gc(this, "close");
+	}
+	
+	createComponent = function(){
+		this.__componentClass__ := eval(this.componentClassPath);
+		if(!this.__componentClass__){
+			error("请 import " ++ this.componentClassPath, 2);
+		}
+		
+		if(!this.pListener){
+			error("对象缺少 pListener 属性", 2);
+		}
+		
+		var component = this.__componentClass__(null, this.pListener);
+		var id = ..table.push(this.components, component);  
+		component.id = tostring(id);
+		
+		return component;	
+	}
+	
+	close = function(){
+		if(this.components){
+			for(i=1;#this.components;1){
+				this.components[i].destroy();
+			}
+			this.components = null;
+		}
+		
+		this.destroy();
+	}
+		
+	createThreadCallback = function(callback, proto){
+		if(!callback) error("线程回调函数不能为空", 2);
+		
+		return ..thread.tostdcall( 
+			function(pSocket, ...){	
+				if(!__componentClass__){
+					global.import(owner.componentClassPath);
+					__componentClass__ = eval(owner.componentClassPath);
+					
+					if(owner.threadGlobal){
+						..table.assign(global, owner.threadGlobal);
+						owner.threadGlobal = null;
+					}
+					
+					if(owner.onThreadCreated){
+						owner.onThreadCreated();
+						owner.onThreadCreated = null;
+					}
+	
+					if(owner.userMeta){
+						..table.assign(__componentClass__._metaProperty, owner.userMeta);
+						owner.userMeta = null;
+					}
+					
+					if(owner.onThreadEnd){
+						..subscribe("beforeUnload", owner.onThreadEnd);
+						owner.onThreadEnd = null;
+					}
+				}
+
+				return owner.callback(__componentClass__(pSocket), ...);
+			},
+			proto,
+			{
+				componentClassPath = this.componentClassPath; 
+				callback = callback;
+				threadGlobal = this.threadGlobal;
+				onThreadCreated = this.onThreadCreated;
+				onThreadEnd = this.onThreadEnd;
+				userMeta = this.userMeta;
+			});	
+	}
+}

@@ -1,0 +1,20 @@
+﻿import aaz.libhpsocket.listener.client;
+import aaz.libhpsocket.component.udpCast;
+
+var _dll = aaz.libhpsocket._dll;
+
+namespace aaz.libhpsocket.listener;
+class udpCast{
+	ctor(){
+		this = ..aaz.libhpsocket.listener.client("component.udpCast");
+		this.pListener = _dll.Create_HP_UdpCastListenerP();
+		this.componentClass = ..aaz.libhpsocket.component.udpCast;   
+	}
+
+	destroy = function(){
+		if(this.pListener){
+			_dll.Destroy_HP_UdpCastListener(this.pListener);
+			this.pListener = null;
+		}
+	}
+}

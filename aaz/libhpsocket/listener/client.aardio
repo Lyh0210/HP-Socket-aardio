@@ -1,0 +1,17 @@
+﻿import util.metaProperty;
+import aaz.libhpsocket.listener;
+import aaz.libhpsocket.listener.properties.client;
+
+var _dll = aaz.libhpsocket._dll;
+
+namespace aaz.libhpsocket.listener;
+class client{
+	ctor(className){
+		this = ..aaz.libhpsocket.listener(className);
+	}
+	
+	@_metaProperty;
+}
+
+client._metaProperty = ..util.metaProperty(..aaz.libhpsocket.listener.properties.client);  	
+
