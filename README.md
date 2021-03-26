@@ -1,6 +1,6 @@
 # hp-socket-bindings-for-aardio
 ### ssl http client 简单的例子
-````
+````javascript
 import win.ui;
 /*DSG{{*/
 var winform = win.form(text="aardio form";right=466;bottom=144)
