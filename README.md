@@ -1,5 +1,9 @@
-# hp-socket-bindings-for-aardio
-### ssl http client 简单的例子
+# HP-Socket-bindings-for-aardio
+#### [HP-Socket](https://github.com/ldcsaa/HP-Socket) is a high performance network framework.
+#### [aardio](http://www.aardio.com/)  is an extremely easy-to-use dynamic language, but it is also a hybrid language that allows for rare and very convenient manipulation of static types, so it can directly call API interface functions of static languages such as C, C++, etc.
+
+### A simple example for ssl http client
+***
 ````javascript
 import win.ui;
 /*DSG{{*/
