@@ -5,12 +5,12 @@ var _dll = aaz.libhpsocket._dll;
 
 namespace aaz.libhpsocket.ssl.component;
 class tcpPullClient{
-	ctor( pSocket, pListener ){
+	ctor(listener, pSocket){
 		if(pSocket){
 			this.pSocket = pSocket;
 		}
-		elseif(pListener){
-			this.pSocket = _dll.Create_HP_SSLPullClientP(pListener);
+		elseif(listener){
+			this.pSocket = _dll.Create_HP_SSLPullClientP(listener);
 			..table.gc( this, "destroy" );
 		}
 		else {
@@ -27,5 +27,4 @@ class tcpPullClient{
 	
 	@_metaProperty;
 }
-
 tcpPullClient._metaProperty = ..util.metaProperty(..aaz.libhpsocket.ssl.component.properties.tcpPullClient);

@@ -7,4 +7,4 @@ namespace aaz.libhpsocket.ssl.component.properties.httpClient;
 	self, 		
 	..aaz.libhpsocket.component.properties.httpClient, 
 	..aaz.libhpsocket.ssl.component.properties.client
-)
+);

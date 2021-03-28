@@ -105,21 +105,21 @@ onChunkComplete = {
 
 onMessageComplete = {
 	_set = function(callback){
-		owner.OnMessageCompleteCallback = owner.createThreadCallback(callback,"int(ptr pSender,ADDR connId)");
+		owner.OnMessageCompleteCallback = owner.createThreadCallback(callback, "int(ptr pSender,ADDR connId)");
 		_dll.HP_Set_FN_HttpAgent_OnMessageComplete(owner.pListener, owner.OnMessageCompleteCallback); 
 	} 	
 }
 
 onUpgrade = {
 	_set = function(callback){
-		owner.OnUpgradeCallback = owner.createThreadCallback(callback,"int(ptr pSender,ADDR connId,int upgradeType)");
+		owner.OnUpgradeCallback = owner.createThreadCallback(callback, "int(ptr pSender,ADDR connId,int upgradeType)");
 		_dll.HP_Set_FN_HttpAgent_OnUpgrade(owner.pListener, owner.OnUpgradeCallback); 
 	} 	
 }
 
 onParseError = {
 	_set = function(callback){
-		owner.OnParseErrorCallback = owner.createThreadCallback(callback,"int(ptr pSender,ADDR connId, int errorCode,string errorDesc)");
+		owner.OnParseErrorCallback = owner.createThreadCallback(callback, "int(ptr pSender,ADDR connId, int errorCode,string errorDesc)");
 		_dll.HP_Set_FN_HttpAgent_OnParseError(owner.pListener, owner.OnParseErrorCallback); 
 	} 	
 }

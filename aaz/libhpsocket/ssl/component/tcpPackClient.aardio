@@ -5,12 +5,12 @@ var _dll = aaz.libhpsocket._dll;
 
 namespace aaz.libhpsocket.ssl.component;
 class tcpPackClient{
-	ctor(pSocket, pListener){
+	ctor(listener, pSocket){
 		if(pSocket){
 			this.pSocket = pSocket;
 		}
-		elseif(pListener){
-			this.pSocket = _dll.Create_HP_SSLPackClientP(pListener);
+		elseif(listener){
+			this.pSocket = _dll.Create_HP_SSLPackClientP(listener);
 			..table.gc(this, "destroy");
 		}
 		else {
@@ -27,5 +27,4 @@ class tcpPackClient{
 	
 	@_metaProperty;
 }
-
 tcpPackClient._metaProperty = ..util.metaProperty( ..aaz.libhpsocket.ssl.component.properties.tcpPackClient );

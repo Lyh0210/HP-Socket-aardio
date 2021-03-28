@@ -1,18 +1,15 @@
 ﻿import util.metaProperty;
 import aaz.libhpsocket.listener;
-import aaz.libhpsocket.component.udpNode;
+import aaz.libhpsocket.listener.properties.udpNode;
 
 var _dll = aaz.libhpsocket._dll;
-
-import aaz.libhpsocket.listener;
-import aaz.libhpsocket.listener.properties.udpNode;
 
 namespace aaz.libhpsocket.listener;
 class udpNode{
 	ctor(){
-		this = ..aaz.libhpsocket.listener("component.udpNode");
+		this = ..aaz.libhpsocket.listener();
+		this.componentClassPath = "component.udpNode"; 
 		this.pListener = _dll.Create_HP_UdpNodeListenerP(); 
-		this.componentClass = ..aaz.libhpsocket.component.udpNode;  
 	}
 
 	destroy = function(){
@@ -24,5 +21,4 @@ class udpNode{
 	
 	@_metaProperty;
 }
-
 udpNode._metaProperty = ..util.metaProperty(..aaz.libhpsocket.listener.properties.udpNode); 

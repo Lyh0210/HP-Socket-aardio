@@ -1,14 +1,14 @@
 ﻿import util.metaProperty;
 import aaz.libhpsocket.listener;
 import aaz.libhpsocket.listener.properties.httpClient;
-import aaz.libhpsocket.component.httpClient;
 
 var _dll = aaz.libhpsocket._dll;
 
 namespace aaz.libhpsocket.listener;
 class httpClient{
 	ctor(){
-		this = ..aaz.libhpsocket.listener("component.httpClient");
+		this = ..aaz.libhpsocket.listener();
+		this.componentClassPath = "component.httpClient"
 		this.pListener = _dll.Create_HP_HttpClientListenerP();
 	}
 	
@@ -21,5 +21,4 @@ class httpClient{
 	
 	@_metaProperty;
 }
-
 httpClient._metaProperty = ..util.metaProperty(..aaz.libhpsocket.listener.properties.httpClient);

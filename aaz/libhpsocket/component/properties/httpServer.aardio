@@ -23,6 +23,7 @@ getUrl = function(path, scheme){
 	}
 	return url;
 }
+
 getWsUrl = function(path){
 	return owner.getUrl(path, "ws");
 }
@@ -172,8 +173,7 @@ getHeaders = function(connId,name){
 	if( s.array.length == 0 ){
 		return true, s.array; 
 	}
-	
-	return _dll.HP_HttpServer_GetHeadersB( owner.pSocket,connId, name, s, s.array),  s.array;
+	return _dll.HP_HttpServer_GetHeadersB( owner.pSocket,connId, name, s, s.array), s.array;
 }
 
 getAllHeaders = function(connId){
@@ -192,7 +192,6 @@ getAllHeaderNames = function(connId){
 	if( s.array.length == 0 ){
 		return true, s.array; 
 	}
-	
 	return _dll.HP_HttpServer_GetAllHeaderNames(owner.pSocket,connId,s,s.array),  s.array;
 }
 

@@ -1,19 +1,11 @@
-﻿import aaz.libhpsocket.listener.server;
-import aaz.libhpsocket.ssl.component.tcpServer;
+﻿import aaz.libhpsocket.listener.tcpServer;
 
 var _dll = aaz.libhpsocket._dll;
 
 namespace aaz.libhpsocket.ssl.listener;
 class tcpServer{
 	ctor(){
-		this = ..aaz.libhpsocket.listener.server("ssl.component.tcpServer");
-		this.pListener = _dll.Create_HP_TcpServerListenerP();
-	}
-
-	destroy = function(){
-		if(this.pListener){
-			_dll.Destroy_HP_TcpServerListener(this.pListener);
-			this.pListener = null;
-		}
+		this = ..aaz.libhpsocket.listener.tcpServer();
+		this.componentClassPath = "ssl.component.tcpServer";
 	}
 }

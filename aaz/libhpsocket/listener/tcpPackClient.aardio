@@ -1,12 +1,12 @@
 ﻿import aaz.libhpsocket.listener.client;
-import aaz.libhpsocket.component.tcpPackClient;
 
 var _dll = aaz.libhpsocket._dll;
 
 namespace aaz.libhpsocket.listener;
 class tcpPackClient{
 	ctor(){
-		this = ..aaz.libhpsocket.listener.client("component.tcpPackClient");
+		this = ..aaz.libhpsocket.listener.client();
+		this.componentClassPath = "component.tcpPackClient";
 		this.pListener = _dll.Create_HP_TcpPackClientListenerP();
 	}
 

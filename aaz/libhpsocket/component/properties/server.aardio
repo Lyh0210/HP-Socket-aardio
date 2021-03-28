@@ -310,14 +310,13 @@ getString = function(connId){
 }
 
 bindExtra = function(connId, userData){
-	var ok, ptr;
-	if( connId ){
-		ok, ptr = owner.getConnectionExtra( connId )
-	}
-	return ..aaz.hpsocket.util.extra( ptr, userData ); 
+	var ok, ptr = owner.getConnectionExtra(connId);
+	if(ok){
+		return ..aaz.libhpsocket.util.extra(ptr, userData); 
+	}	
 }
 
 setUserMeta = function(value){
-	..table.mixin( owner, value )
-	owner.userMeta = value
+	..table.mixin(owner, value);
+	owner.userMeta = value;
 }	

@@ -6,11 +6,10 @@ var _dll = aaz.libhpsocket._dll;
 
 namespace aaz.libhpsocket.listener;
 class server{
-	ctor(className){
-		this = ..aaz.libhpsocket.listener(className);
+	ctor(){
+		this = ..aaz.libhpsocket.listener();
 	}
 	
 	@_metaProperty;
 }
-
-server._metaProperty = ..util.metaProperty(_properties); 
+server._metaProperty = ..util.metaProperty(..aaz.libhpsocket.listener.properties.server); 

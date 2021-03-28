@@ -13,102 +13,183 @@ namespace aaz.libhpsocket.component.properties.httpAgent;
 
 sendRequest = function(connId, method="GET", path, body, headers){
 	headers = ..aaz.libhpsocket.helper.headers( headers );
-	return _dll.HP_HttpAgent_SendRequestB( owner.pSocket, connId, method, path, headers.struct(), headers.length(), body, #body );
+	return 
+		_dll.HP_HttpAgent_SendRequestB(
+			owner.pSocket, 
+			connId, 
+			method, 
+			path, 
+			headers.struct(), 
+			headers.length(), 
+			body, 
+			#body);
 }
 
-sendLocalFile = function(connId,filename,method,path,headers){
+sendLocalFile = function(connId, filename, method, path, headers){
 	headers = ..aaz.libhpsocket.helper.headers(headers)
-	return _dll.HP_HttpAgent_SendLocalFileB(owner.pSocket,connId,..io.fullpath(filename),method,path,headers.struct(),headers.length());
+	return 
+		_dll.HP_HttpAgent_SendLocalFileB(
+			owner.pSocket,
+			connId,
+			..io.fullpath(filename),
+			method,
+			path,
+			headers.struct(),
+			headers.length());
 }
 
 sendChunkData = function(connID, pData, len=0, extensions){
-	return _dll.HP_HttpAgent_SendChunkDataB( connID, pData, len, extensions ); 
+	return _dll.HP_HttpAgent_SendChunkDataB(connID, pData, len, extensions); 
 }
 
 sendPost = function( connId, path,headers, body){
 	headers = ..aaz.libhpsocket.helper.headers(headers)
-	return 	_dll.HP_HttpAgent_SendPost(owner.pSocket,connId,path,headers.struct(),headers.length(),body,#body);
+	return 	
+		_dll.HP_HttpAgent_SendPost(
+			owner.pSocket,
+			connId,
+			path,
+			headers.struct(),
+			headers.length(),
+			body,
+			#body);
 }
 
-sendPut = function(connId, path,headers, body){
+sendPut = function(connId, path, headers, body){
 	headers = ..aaz.libhpsocket.helper.headers(headers)
-	return _dll.HP_HttpClient_SendPutB(owner.pSocket,connId, path,headers.struct(),headers.length(), body, #body);
+	return 
+		_dll.HP_HttpClient_SendPutB(
+			owner.pSocket,
+			connId, 
+			path,
+			headers.struct(),
+			headers.length(), 
+			body, 
+			#body);
 }
 
-sendPatch = function(connId, path,headers, body){
+sendPatch = function(connId, path, headers, body){
 	headers = ..aaz.libhpsocket.helper.headers(headers)
-	return _dll.HP_HttpClient_SendPatchB(owner.pSocket,connId, path,headers.struct(),headers.length(), body, #body);
+	return 
+		_dll.HP_HttpClient_SendPatchB(
+			owner.pSocket,
+			connId, 
+			path,
+			headers.struct(),
+			headers.length(), 
+			body, 
+			#body);
 }
 
 sendGet = function(connId, path,headers){
 	headers = ..aaz.libhpsocket.helper.headers(headers)
-	return _dll.HP_HttpAgent_SendGetB(owner.pSocket, connId, path, headers.struct(), headers.length());
+	return 
+		_dll.HP_HttpAgent_SendGetB(
+			owner.pSocket, 
+			connId, 
+			path, 
+			headers.struct(), 
+			headers.length());
 }
 
-sendDelete = function(connId, path,headers){
+sendDelete = function(connId, path, headers){
 	headers = ..aaz.libhpsocket.helper.headers(headers)
-	return _dll.HP_HttpClient_SendDeleteB(owner.pSocket,connId, path,headers.struct(),headers.length());
+	return 
+		_dll.HP_HttpClient_SendDeleteB(
+			owner.pSocket,
+			connId, 
+			path,
+			headers.struct(),
+			headers.length());
 } 
 
 sendHead = function(connId, path,headers){
 	headers = ..aaz.libhpsocket.helper.headers(headers)
-	return _dll.HP_HttpClient_SendHeadB(owner.pSocket,connId, path,headers.struct(),headers.length());
+	return 
+		_dll.HP_HttpClient_SendHeadB(
+			owner.pSocket,
+			connId,
+			path,
+			headers.struct(),
+			headers.length());
 } 
 
 sendTrace = function(connId, path,headers){
 	headers = ..aaz.libhpsocket.helper.headers(headers)
-	return _dll.HP_HttpClient_SendTraceB(owner.pSocket,connId, path,headers.struct(),headers.length());
+	return 
+		_dll.HP_HttpClient_SendTraceB(
+			owner.pSocket,
+			connId, 
+			path,
+			headers.struct(),
+			headers.length());
 } 
 
 sendOptions = function(connId, path,headers){
-	headers = ..aaz.libhpsocket.helper.headers(headers)
-	return _dll.HP_HttpClient_SendOptionsB(owner.pSocket,connId, path,headers.struct(),headers.length());
+	headers = ..aaz.libhpsocket.helper.headers(headers);
+	return _dll.HP_HttpClient_SendOptionsB(owner.pSocket, connId, path, headers.struct(), headers.length());
 } 
 
 sendConnect = function( connId, host, headers ){
-	headers = ..aaz.libhpsocket.helper.headers(headers)
-	return _dll.HP_HttpAgent_SendConnectB(owner.pSocket,connId,host,path,headers.struct(),headers.length());
+	headers = ..aaz.libhpsocket.helper.headers(headers);
+	return 
+		_dll.HP_HttpAgent_SendConnectB(
+			owner.pSocket,
+			connId,
+			host,
+			path,
+			headers.struct(),
+			headers.length());
 }
 
-sendWsMessage = function(connId,data,opCode,final = true,mask='\x01\x02\x03\x04',bodyLen=0,reserved){
+sendWsMessage = function(connId, data, opCode, final=true, mask='\x01\x02\x03\x04', bodyLen=0, reserved){
 	var len;
-	if( data[["_struct"]] ){
+	if(data[["_struct"]]){
 		len = ..raw.sizeof(data);
-		if( opCode === null ){
+		if(opCode === null){
 			opCode = 2;
 		}
 	}
-	elseif( type(data) == type.string ){
+	elseif(type(data) == type.string){
 		len = #data;
 		if( opCode === null ){
 			opCode = 1;
 		}
 	}
 	else {
-		error("sendWsMessage 格式有误",2)
+		error("sendWsMessage 格式有误", 2);
 	}
-	
 
-	var pData = realloc( len,,data);
-	var r = _dll.HP_HttpAgent_SendWSMessageB(owner.pSocket,connId,final,reserved,opCode,mask,pData, len, ..math.size64(len+bodyLen) );
-	realloc(0,pData);
+	var pData = realloc(len, null, data);
+	var r = _dll.HP_HttpAgent_SendWSMessageB(
+		owner.pSocket,
+		connId,
+		final,
+		reserved,
+		opCode,
+		mask,
+		pData, 
+		len, 
+		..math.size64(len+bodyLen));
+	
+	realloc(0, pData);
 	return r;
 }
 
-startHttp = function( connId ){
-	return _dll.HP_HttpAgent_StartHttpB( owner.pSocket, connId ) 
+startHttp = function(connId){
+	return _dll.HP_HttpAgent_StartHttpB(owner.pSocket, connId);
 }
 
 getStatusCode = function(connId){
-	return 0xFFFF & _dll.HP_HttpAgent_GetStatusCode(owner.pSocket,connId);
+	return 0xFFFF & _dll.HP_HttpAgent_GetStatusCode(owner.pSocket, connId);
 }
 
 isUpgrade = function(connId){
-	return _dll.HP_HttpAgent_IsUpgradeB(owner.pSocket,connId);
+	return _dll.HP_HttpAgent_IsUpgradeB(owner.pSocket, connId);
 }
 
 isKeepAlive = function(connId){
-	return _dll.HP_HttpAgent_IsKeepAliveB(owner.pSocket,connId);
+	return _dll.HP_HttpAgent_IsKeepAliveB(owner.pSocket, connId);
 } 
 
 getVersion = function(){
@@ -116,38 +197,39 @@ getVersion = function(){
 }
 
 getContentLength = function(connId){
-	return _dll.HP_HttpAgent_GetContentLength(owner.pSocket,connId);
+	return _dll.HP_HttpAgent_GetContentLength(owner.pSocket, connId);
 }
 
 getContentType = function(connId){
-	var s = _dll.HP_HttpAgent_GetContentTypeP(owner.pSocket,connId);
+	var s = _dll.HP_HttpAgent_GetContentTypeP(owner.pSocket, connId);
 	if(s) return ..raw.str(s);
 }	
 
 getContentEncoding = function(connId){
-	var s = _dll.HP_HttpAgent_GetContentEncodingP(owner.pSocket,connId);
+	var s = _dll.HP_HttpAgent_GetContentEncodingP(owner.pSocket, connId);
 	if(s) return ..raw.str(s);
 }
 
 getTransferEncoding = function(connId){
-	var s = _dll.HP_HttpAgent_GetTransferEncodingP(owner.pSocket,connId);
+	var s = _dll.HP_HttpAgent_GetTransferEncodingP(owner.pSocket, connId);
 	if(s) return ..raw.str(s);
 }
 
 getUpgradeType = function(connId){
-	return  _dll.HP_HttpAgent_GetUpgradeType(owner.pSocket,connId);
+	return  _dll.HP_HttpAgent_GetUpgradeType(owner.pSocket, connId);
 }
 
 getParseErrorCode = function(connId){
 	var errdesc= {string value};
-	var errno = 0xFFFF & _dll.HP_HttpAgent_GetParseErrorCode(owner.pSocket,connId,errdesc);
-	return errno,errdesc.value;
+	// int -> USHORT
+	var errno = 0xFFFF & _dll.HP_HttpAgent_GetParseErrorCode(owner.pSocket, connId, errdesc);
+	return errno, errdesc.value;
 }
 
 getHeader = function(connId, name){
 	var value = {string value};
 	_dll.HP_HttpAgent_GetHeaderB(owner.pSocket, connId, name, value)
-	return , value.value;
+	return value.value;
 }
 
 getHeaders = function(connId, name){
@@ -205,13 +287,24 @@ getAllCookies = function(connId){
 }
 
 getWsMessageState = function(connId){
-	var final = {bool value}
-	var reserved = {BYTE value}
-	var operationCode = {BYTE value}
-	var mask = {INT value}
-	var bodyLen = {LONG value}
-	var bodyRemain = {LONG value} 
-	if(_dll.HP_HttpAgent_GetWSMessageState(owner.pSocket, connId, final, reserved ,operationCode, mask, bodyLen, bodyRemain)){
+	var final = {bool value};
+	var reserved = {BYTE value};
+	var operationCode = {BYTE value};
+	var mask = {INT value};
+	var bodyLen = {LONG value};
+	var bodyRemain = {LONG value}; 
+	
+	var ok = _dll.HP_HttpAgent_GetWSMessageState(
+		owner.pSocket, 
+		connId, 
+		final, 
+		reserved,
+		operationCode, 
+		mask, 
+		bodyLen, 
+		bodyRemain);
+		
+	if(ok){
 		return{
 			final = final.value;
 			reserved = reserved.value;
@@ -225,33 +318,34 @@ getWsMessageState = function(connId){
 
 localVersion = {
     _get = function(){
-    	return _dll.HP_HttpAgent_GetLocalVersion( owner.pSocket );  
+    	return _dll.HP_HttpAgent_GetLocalVersion(owner.pSocket);  
     }
-    _set = function(usVersion){
-    	_dll.HP_HttpAgent_SetLocalVersion( owner.pSocket, usVersion )
+    _set = function(v){
+    	_dll.HP_HttpAgent_SetLocalVersion(owner.pSocket, v);
     } 
 }
 
 isUseCookie = {
     _get = function(){
-    	return _dll.HP_HttpAgent_IsUseCookieB( owner.pSocket );  
+    	return _dll.HP_HttpAgent_IsUseCookieB(owner.pSocket);  
     }
-    _set = function( v ){
-    	_dll.HP_HttpAgent_SetUseCookie( owner.pSocket, v )
+    _set = function(v){
+    	_dll.HP_HttpAgent_SetUseCookie(owner.pSocket, v);
     } 
 }
 
 isHttpAutoStart = {
     _get = function(){
-    	return _dll.HP_HttpAgent_IsHttpAutoStartB( owner.pSocket );  
+    	return _dll.HP_HttpAgent_IsHttpAutoStartB(owner.pSocket);  
     }
     
-    _set = function( v ){
-    	_dll.HP_HttpAgent_SetHttpAutoStart( owner.pSocket, v )
+    _set = function(v){
+    	_dll.HP_HttpAgent_SetHttpAutoStart(owner.pSocket, v);
     } 
 }
 
-saveWsKey = function(connId, key ){
+/*
+saveWsKey = function(connId, key){
 	owner.reallocString(connId,#key);
 	owner.appendString(connId,key,#key)
 }
@@ -285,15 +379,16 @@ sendWsUpgradeRequest = function(connId,path="/",headers){
 		owner.saveWsKey( connId, key )
 	}
 }
+*/
 
-getUrlHost = function(connId,path,scheme){
+getUrlHost = function(connId, path, scheme){
 	var ip,port = owner.getRemoteHost(connId);
 	if(!(ip&&port) )return;
 	if(ip=="0.0.0.0")ip = "localhost";
 	return  ..string.format("%s:%d",ip,port ); 
 }
 
-getUrl = function(path,scheme){
+getUrl = function(path, scheme){
 	var host = owner.getUrlHost();
 	if(!host) return;
 	var url =  ..string.format("%s://%s",scheme:"http",host ); 

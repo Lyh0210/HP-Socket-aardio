@@ -1,9 +1,8 @@
 ﻿import aaz.libhpsocket.component.properties.client;
 
-var _dll = aaz.libhpsocket._dll;
-
 namespace aaz.libhpsocket.component.properties.tcpClient;
 
+var _dll = ..aaz.libhpsocket._dll;
 ..table.assign(self, ..aaz.libhpsocket.component.properties.client);
 
 sendSmallFile = function(filename, head, tail){

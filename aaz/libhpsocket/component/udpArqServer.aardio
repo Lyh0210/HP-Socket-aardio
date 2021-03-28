@@ -5,12 +5,12 @@ var _dll = aaz.libhpsocket._dll;
 
 namespace aaz.libhpsocket.component;
 class udpArqServer{
-	ctor(pSocket, pListener){
+	ctor(listener, pSocket){
 		if(pSocket){
 			this.pSocket = pSocket;
 		}
-		elseif(type(pListener) == type.pointer){
-			this.pSocket = _dll.Create_HP_UdpArqServerP(pListener);
+		elseif(listener){
+			this.pSocket = _dll.Create_HP_UdpArqServerP(listener);
 			..table.gc(this, "destroy");
 		}
 		else {
@@ -27,5 +27,4 @@ class udpArqServer{
 	
 	@_metaProperty;
 }
-
 udpArqServer._metaProperty = ..util.metaProperty(..aaz.libhpsocket.component.properties.udpArqServer); 

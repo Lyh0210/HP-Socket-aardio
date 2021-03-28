@@ -1,9 +1,8 @@
 ﻿import aaz.libhpsocket;
-import aaz.libhpsocket.util.extra;
-
-var _dll = aaz.libhpsocket._dll;
 
 namespace aaz.libhpsocket.component.properties.client;
+
+var _dll = ..aaz.libhpsocket._dll;
 
 _topointer = function(){
     return owner.pSocket; 
@@ -202,13 +201,4 @@ getString = function(){
 		var size = ..raw.sizeof(extra); 
 		if(size) return ..raw.tostring(extra, 1, size);
 	}
-}
-
-bindExtra = function(extra){
-	return ..aaz.libhpsocket.util.extra(owner.extra, extra); 
-}
-
-setUserMeta = function(value){
-	..table.assign(owner, value)
-	owner.userMeta = value;
 }

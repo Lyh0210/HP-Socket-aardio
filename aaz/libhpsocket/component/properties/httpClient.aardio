@@ -3,13 +3,12 @@ import aaz.libhpsocket.helper.websocket;
 import aaz.libhpsocket.helper.cookie;
 import aaz.libhpsocket.component.properties.tcpClient;
 
-var wsHelper =  aaz.libhpsocket.helper.websocket;
-var realloc = raw.realloc;
-var _dll = aaz.libhpsocket._dll;
-
 namespace aaz.libhpsocket.component.properties.httpClient;
-
 ..table.assign(self, ..aaz.libhpsocket.component.properties.tcpClient);
+
+var wsHelper =  ..aaz.libhpsocket.helper.websocket;
+var realloc = ..raw.realloc;
+var _dll = ..aaz.libhpsocket._dll;
 
 sendRequest = function(body, path, headers, method = "GET"){
 	headers = ..aaz.libhpsocket.helper.headers(headers)

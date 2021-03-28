@@ -1,14 +1,13 @@
 ﻿import aaz.libhpsocket.listener.agent;
-import aaz.libhpsocket.component.tcpPullAgent;
 
 var _dll = aaz.libhpsocket._dll;
 
 namespace aaz.libhpsocket.listener;
 class tcpPullAgent{
 	ctor(){
-		this = ..aaz.libhpsocket.listener.agent("component.tcpPullAgent");
+		this = ..aaz.libhpsocket.listener.agent();
+		this.componentClassPath = "component.tcpPullAgent";
 		this.pListener = _dll.Create_HP_TcpPullAgentListenerP();
-		this.componentClass = ..aaz.libhpsocket.component.tcpPullAgent;  
 	}
 
 	destroy = function(){

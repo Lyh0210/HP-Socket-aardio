@@ -5,12 +5,12 @@ var _dll = aaz.libhpsocket._dll;
 
 namespace aaz.libhpsocket.component;
 class httpClient{
-	ctor(pSocket, pListener){
+	ctor(listener, pSocket){
 		if(pSocket){
 			this.pSocket = pSocket;
 		}
-		elseif(type(pListener) == type.pointer){
-			this.pSocket = _dll.Create_HP_HttpClientP(pListener);
+		elseif(listener){
+			this.pSocket = _dll.Create_HP_HttpClientP(listener);
 			..table.gc(this, "destroy");
 		}
 		else {
