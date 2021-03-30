@@ -9,35 +9,35 @@ namespace aaz.libhpsocket.component.properties.tcpAgent
 sendSmallFile = function(connId, filename, head, tail){
 	if(head) head ={ INT len=#head;ptr head = head }
 	if(tail) tail ={ INT len=#tail;ptr tail = tail }
-	return _dll.HP_TcpAgent_SendSmallFile(owner.pSocket,connId,..io.fullpath(filename),head, tail);
+	return _dll.HP_TcpAgent_SendSmallFile(owner.pAgent,connId,..io.fullpath(filename),head, tail);
 }
 
 socketBufferSize = {
     _get = function(){
-    	return _dll.HP_TcpAgent_GetSocketBufferSize(owner.pSocket);
+    	return _dll.HP_TcpAgent_GetSocketBufferSize(owner.pAgent);
     }
     
     _set = function(v){
-    	_dll.HP_TcpAgent_SetSocketBufferSize(owner.pSocket, v);
+    	_dll.HP_TcpAgent_SetSocketBufferSize(owner.pAgent, v);
     } 
 }
 
 keepAliveTime = {
     _get = function(){
-    	return _dll.HP_TcpAgent_GetKeepAliveTime(owner.pSocket);
+    	return _dll.HP_TcpAgent_GetKeepAliveTime(owner.pAgent);
     }
     
     _set = function(v){
-    	_dll.HP_TcpAgent_SetKeepAliveTime(owner.pSocket, v);
+    	_dll.HP_TcpAgent_SetKeepAliveTime(owner.pAgent, v);
     } 
 }
 
 keepAliveInterval = {
     _get = function(){
-    	return _dll.HP_TcpAgent_GetKeepAliveInterval(owner.pSocket);
+    	return _dll.HP_TcpAgent_GetKeepAliveInterval(owner.pAgent);
     }
     
     _set = function(v){
-    	_dll.HP_TcpAgent_SetKeepAliveInterval(owner.pSocket, v);
+    	_dll.HP_TcpAgent_SetKeepAliveInterval(owner.pAgent, v);
     } 
 }

@@ -6,8 +6,8 @@ namespace aaz.libhpsocket.listener;
 class udpArqServer{
 	ctor(){
 		this = ..aaz.libhpsocket.listener.server();
+		this.pListener = _dll.Create_HP_UdpArqServerListenerP();
 		this.componentClassPath = "component.udpArqServer";
-		this.pListener = _dll.Create_HP_UdpArqServerListenerP(); 
 	}
 
 	destroy = function(){

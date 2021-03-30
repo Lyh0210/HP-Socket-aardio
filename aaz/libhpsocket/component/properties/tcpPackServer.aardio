@@ -1,10 +1,8 @@
 ﻿import aaz.libhpsocket.component.properties.tcpServer;
 
-var _dll = aaz.libhpsocket._dll;
-
 namespace aaz.libhpsocket.component.properties.tcpPackServer;
-
 ..table.assign(self, ..aaz.libhpsocket.component.properties.tcpServer);
+var _dll = ..aaz.libhpsocket._dll;
 
 maxPackSize = {
     _get = function(){ 

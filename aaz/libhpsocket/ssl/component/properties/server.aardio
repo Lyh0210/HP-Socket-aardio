@@ -1,8 +1,7 @@
 ﻿import aaz.libhpsocket.ssl;
 
-var _dll = aaz.libhpsocket._dll;
-
 namespace aaz.libhpsocket.ssl.component.properties.server;
+var _dll = ..aaz.libhpsocket._dll;
 
 setupSSLContext = function(verifyMode, pemCertFile, pemKeyFile, keyPassword, caPemCertFileOrPath, serverNameCallback){
 	return !!_dll.HP_SSLServer_SetupSSLContextW(owner.pSocket, verifyMode, pemCertFile, pemKeyFile, keyPassword, caPemCertFileOrPath, serverNameCallback);

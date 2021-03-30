@@ -2,8 +2,6 @@
 import aaz.libhpsocket.listener;
 import aaz.libhpsocket.listener.properties.client;
 
-var _dll = aaz.libhpsocket._dll;
-
 namespace aaz.libhpsocket.listener;
 class client{
 	ctor(){

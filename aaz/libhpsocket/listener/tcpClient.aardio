@@ -6,8 +6,8 @@ namespace aaz.libhpsocket.listener;
 class tcpClient{
 	ctor(){
 		this = ..aaz.libhpsocket.listener.client();
-		this.componentClassPath = "component.tcpClient";
 		this.pListener = _dll.Create_HP_TcpClientListenerP();
+		this.componentClassPath = "component.tcpClient";	
 	}
 
 	destroy = function(){

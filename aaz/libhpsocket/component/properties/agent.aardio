@@ -1,30 +1,28 @@
 ﻿import aaz.libhpsocket;
-import aaz.libhpsocket.util.extra;
-
-var _dll = aaz.libhpsocket._dll;
 
 namespace aaz.libhpsocket.component.properties.agent;
+var _dll = ..aaz.libhpsocket._dll;
 
 _topointer = function(){
-    return owner.pSocket; 
+    return owner.pAgent; 
 }
 
 start = function(bindAddress, asyncConnect=true){
-	if(_dll.HP_Agent_StartW(owner.pSocket, bindAddress, asyncConnect)){
+	if(_dll.HP_Agent_StartW(owner.pAgent, bindAddress, asyncConnect)){
 		return true; 
 	}
 	return false, owner.lastError;
 }
  
 stop = function(){
-	if(_dll.HP_Agent_Stop(owner.pSocket)){
+	if(_dll.HP_Agent_Stop(owner.pAgent)){
 		return true; 
 	}
 	return false, owner.lastError;
 }
 
 wait = function(milliseconds){
-	if(_dll.HP_Agent_Wait(owner.pSocket, milliseconds)){
+	if(_dll.HP_Agent_Wait(owner.pAgent, milliseconds)){
 		return true; 
 	}
 	return false; 
@@ -32,7 +30,7 @@ wait = function(milliseconds){
 	
 connect = function(remoteAddress, port){
 	var connId = {ADDR value};
-	if(_dll.HP_Agent_ConnectW(owner.pSocket, remoteAddress, port, connId)){
+	if(_dll.HP_Agent_ConnectW(owner.pAgent, remoteAddress, port, connId)){
 		return connId.value;
 	}
 	return false; 	
@@ -40,7 +38,7 @@ connect = function(remoteAddress, port){
 
 connectWithExtra = function(remoteAddress, port, extra){
 	var connId = {ADDR value};
-	if(_dll.HP_Agent_ConnectWithExtraW(owner.pSocket, remoteAddress, port, connId, extra)){
+	if(_dll.HP_Agent_ConnectWithExtraW(owner.pAgent, remoteAddress, port, connId, extra)){
 		return connId.value;
 	}
 	return false; 
@@ -48,7 +46,7 @@ connectWithExtra = function(remoteAddress, port, extra){
 
 connectWithLocalPort = function(remoteAddress, port, localPort=0){
 	var connId = {ADDR value};
-	if(_dll.HP_Agent_ConnectWithLocalPortW(owner.pSocket, remoteAddress, port, connId, localPort)){
+	if(_dll.HP_Agent_ConnectWithLocalPortW(owner.pAgent, remoteAddress, port, connId, localPort)){
 		return connId.value;
 	}
 	return false; 		
@@ -56,7 +54,7 @@ connectWithLocalPort = function(remoteAddress, port, localPort=0){
 
 connectWithLocalAddress = function(remoteAddress, port, localAddress){
 	var connId = {ADDR value}
-	if(_dll.HP_Agent_ConnectWithLocalAddressW(owner.pSocket, remoteAddress, port, connId, localAddress)){
+	if(_dll.HP_Agent_ConnectWithLocalAddressW(owner.pAgent, remoteAddress, port, connId, localAddress)){
 		return connId.value;
 	}
 	return false;		
@@ -64,7 +62,7 @@ connectWithLocalAddress = function(remoteAddress, port, localAddress){
 
 connectWithExtraAndLocalPort = function(remoteIp, remotePort, extra, localPort=0){
 	var connId = {ADDR value}
-	if(_dll.HP_Agent_ConnectWithExtraAndLocalPortW(owner.pSocket,remoteIp, remotePort, connId, extra, localPort)){
+	if(_dll.HP_Agent_ConnectWithExtraAndLocalPortW(owner.pAgent,remoteIp, remotePort, connId, extra, localPort)){
 		return connId.value;
 	}	
 	return false;		
@@ -72,7 +70,7 @@ connectWithExtraAndLocalPort = function(remoteIp, remotePort, extra, localPort=0
 
 connectWithExtraAndLocalAddressPort = function(remoteIp, remotePort, extra, localPort=0, localIp){
 	var connId = {ADDR value}
-	if(_dll.HP_Agent_ConnectWithExtraAndLocalAddressPortW(owner.pSocket, remoteIp, remotePort, connId, extra, localPort, localIp)){
+	if(_dll.HP_Agent_ConnectWithExtraAndLocalAddressPortW(owner.pAgent, remoteIp, remotePort, connId, extra, localPort, localIp)){
 		return connId.value;
 	}	
 	return false;		
@@ -89,7 +87,7 @@ send = function(connId, buffer, len){
 		len = #buffer;
 	}
 	
-	return _dll.HP_Agent_SendB(owner.pSocket, connId, buffer, len);
+	return _dll.HP_Agent_SendB(owner.pAgent, connId, buffer, len);
 }
 
 sendPart = function(connId, buffer, length, offset=0){
@@ -103,64 +101,64 @@ sendPart = function(connId, buffer, length, offset=0){
 		length = #buffer;
 	}
 			
-	if(_dll.HP_Agent_SendPartB( owner.pSocket, connId, buffer, length, offset)){
+	if(_dll.HP_Agent_SendPartB( owner.pAgent, connId, buffer, length, offset)){
 		return true; 
 	}
 	return false; 
 }
 
 pauseReceive = function(connId, pause){
-	return _dll.HP_Agent_PauseReceiveB(owner.pSocket, connId, pause); 
+	return _dll.HP_Agent_PauseReceiveB(owner.pAgent, connId, pause); 
 }	
 		
 disconnect = function(connId, force){
-	return _dll.HP_Agent_DisconnectB owner.pSocket, connId, force);
+	return _dll.HP_Agent_DisconnectB owner.pAgent, connId, force);
 }
 
 disconnectLongConnections = function(period,force){
-	return _dll.HP_Agent_DisconnectLongConnectionsB(owner.pSocket, period, force);
+	return _dll.HP_Agent_DisconnectLongConnectionsB(owner.pAgent, period, force);
 }
 
 disconnectSilenceConnections = function(period,force){
-	return _dll.HP_Agent_DisconnectSilenceConnectionsB(owner.pSocket, period, force);
+	return _dll.HP_Agent_DisconnectSilenceConnectionsB(owner.pAgent, period, force);
 }	
 	
 setConnectionExtra = function(connId, pExtra){
-	return _dll.HP_Agent_SetConnectionExtraB(owner.pSocket, connId, pExtra);
+	return _dll.HP_Agent_SetConnectionExtraB(owner.pAgent, connId, pExtra);
 }
 
 getConnectionExtra = function(connId){
  	var extra = {ptr value};
  		
 	return 
-		_dll.HP_Agent_GetConnectionExtraB(owner.pSocket, connId, extra), 
+		_dll.HP_Agent_GetConnectionExtraB(owner.pAgent, connId, extra), 
 		extra.value;
 }
 
 getAllConnectionIds = function(){		
-	var s = {
+	var ids = {
 		ADDR array[] = { INT length } 
 	};
 	
-	_dll.HP_Agent_GetAllConnectionIDs(owner.pSocket, null, s.array);
-	if( s.array.length == 0 ){
-		return true, s.array; 
+	_dll.HP_Agent_GetAllConnectionIDs(owner.pAgent, null, ids.array);
+	if( ids.array.length == 0 ){
+		return true, ids.array; 
 	}
 
 	return 
-		_dll.HP_Agent_GetAllConnectionIDs(owner.pSocket, s, s.array), 
-		s.array;
+		_dll.HP_Agent_GetAllConnectionIDsB(owner.pAgent, ids, ids.array), 
+		ids.array;
 }
 
 getConnectPeriod = function(connId){
 	var s = {INT value} 
-	if(_dll.HP_Agent_GetConnectPeriod(owner.pSocket, connId, s))
+	if(_dll.HP_Agent_GetConnectPeriod(owner.pAgent, connId, s))
 		return s.value;;
 }
 
 getSilencePeriod = function(connId){
 	var s = {int value} 
-	if(_dll.HP_Agent_GetSilencePeriod(owner.pSocket,connId,s))
+	if(_dll.HP_Agent_GetSilencePeriod(owner.pAgent,connId,s))
 		return s.value;;
 }
 
@@ -169,7 +167,7 @@ getLocalAddress = function(connId){
 	var addrlen = { int value=60 };
 	var port = { WORD value };
 	
-	if(_dll.HP_Agent_GetLocalAddress(owner.pSocket, connId, addr, addrlen, port))
+	if(_dll.HP_Agent_GetLocalAddress(owner.pAgent, connId, addr, addrlen, port))
 		return addr.value,port.value;
 }
 
@@ -177,7 +175,7 @@ getRemoteAddress = function(connId){
 	var addr ={ WORD value[60] };
 	var addrlen = {int value=60 };
 	var port = { WORD value };
-	if(_dll.HP_Agent_GetRemoteAddress(owner.pSocket, connId, addr, addrlen, port))
+	if(_dll.HP_Agent_GetRemoteAddress(owner.pAgent, connId, addr, addrlen, port))
 		return addr.value, port.value;
 }
 
@@ -185,59 +183,59 @@ getRemoteHost = function(connId){
 	var addr ={ WORD value[60] };
 	var addrlen = { int value=60 };
 	var port = { WORD value };
-	if(_dll.HP_Agent_GetRemoteHost(owner.pSocket, connId, addr, addrlen, port))
-		return addr.value,port.value;
+	if(_dll.HP_Agent_GetRemoteHost(owner.pAgent, connId, addr, addrlen, port))
+		return addr.value, port.value;
 }
 
 getPendingDataLength = function(connId){
 	var s = { int value } 
-	if( _dll.HP_Agent_GetPendingDataLength(owner.pSocket, connId, s))
+	if( _dll.HP_Agent_GetPendingDataLength(owner.pAgent, connId, s))
 		return s.value;; 
 }
 
 isPauseReceive = function( connId ){
 	var result = { bool value };
-	var ok = _dll.HP_Agent_IsPauseReceive(owner.pSocket, connId, result);
+	var ok = _dll.HP_Agent_IsPauseReceive(owner.pAgent, connId, result);
 	return ok, result.value; 
 }
 
 isConnected = function(connId){
-	return _dll.HP_Agent_IsConnectedB(owner.pSocket, connId);
+	return _dll.HP_Agent_IsConnectedB(owner.pAgent, connId);
 }
 
 isSecure = {
 	_get = function(){
-		return _dll.HP_Agent_IsSecureB(owner.pSocket);
+		return _dll.HP_Agent_IsSecureB(owner.pAgent);
 	}
 }
 
 hasStarted = {
 	_get = function(){
-		return _dll.HP_Agent_HasStartedB(owner.pSocket);
+		return _dll.HP_Agent_HasStartedB(owner.pAgent);
 	}
 }
 
 state = {
 	_get = function(){
-		return _dll.HP_Agent_GetState(owner.pSocket);
+		return _dll.HP_Agent_GetState(owner.pAgent);
 	}
 }
 
 connectionCount = {
     _get = function(){
-    	return _dll.HP_Agent_GetConnectionCount(owner.pSocket); 
+    	return _dll.HP_Agent_GetConnectionCount(owner.pAgent); 
     }
 }
 
 lastError = {
     _get = function(){
-    	return _dll.HP_Agent_GetLastError(owner.pSocket);
+    	return _dll.HP_Agent_GetLastError(owner.pAgent);
     }
 }
 
 lastErrorDesc = {
     _get = function(){
-    	var p = _dll.HP_Agent_GetLastErrorDesc(owner.pSocket);
+    	var p = _dll.HP_Agent_GetLastErrorDesc(owner.pAgent);
     	if(p){
     		return ..raw.str(p,true); 	
     	}
@@ -246,131 +244,110 @@ lastErrorDesc = {
 
 reuseAddressPolicy = {
     _get = function(){
-    	return _dll.HP_Agent_GetReuseAddressPolicy(owner.pSocket); 
+    	return _dll.HP_Agent_GetReuseAddressPolicy(owner.pAgent); 
     }
     
     _set = function(v){
-    	_dll.HP_Agent_SetReuseAddressPolicy(owner.pSocket, v);
+    	_dll.HP_Agent_SetReuseAddressPolicy(owner.pAgent, v);
     } 
 }
 
 sendPolicy = {
     _get = function(){
-    	return _dll.HP_Agent_GetSendPolicy(owner.pSocket); 
+    	return _dll.HP_Agent_GetSendPolicy(owner.pAgent); 
     }
     
     _set = function(v){
-    	_dll.HP_Agent_SetSendPolicy(owner.pSocket, v);
+    	_dll.HP_Agent_SetSendPolicy(owner.pAgent, v);
     } 
 }
 
 onSendSyncPolicy = {
     _get = function(){
-    	return _dll.HP_Agent_GetOnSendSyncPolicy(owner.pSocket); 
+    	return _dll.HP_Agent_GetOnSendSyncPolicy(owner.pAgent); 
     }
     
     _set = function(v){
-    	_dll.HP_Agent_SetOnSendSyncPolicy(owner.pSocket, v);
+    	_dll.HP_Agent_SetOnSendSyncPolicy(owner.pAgent, v);
     } 
 }
 
 freeSocketObjLockTime = {
     _get = function(){
-    	return _dll.HP_Agent_GetFreeSocketObjLockTime(owner.pSocket); 
+    	return _dll.HP_Agent_GetFreeSocketObjLockTime(owner.pAgent); 
     }
     
     _set = function(v){
-    	_dll.HP_Agent_SetFreeSocketObjLockTime(owner.pSocket, v);
+    	_dll.HP_Agent_SetFreeSocketObjLockTime(owner.pAgent, v);
     } 
 }
 
 freeSocketObjPool = {
     _get = function(){
-    	return _dll.HP_Agent_GetFreeSocketObjPool(owner.pSocket); 
+    	return _dll.HP_Agent_GetFreeSocketObjPool(owner.pAgent); 
     }
     
     _set = function(v){
-    	_dll.HP_Agent_SetFreeSocketObjPool(owner.pSocket, v);
+    	_dll.HP_Agent_SetFreeSocketObjPool(owner.pAgent, v);
     } 
 }
 
 freeBufferObjPool = {
     _get = function(){
-    	return _dll.HP_Agent_GetFreeSocketObjPool( owner.pSocket ); 
+    	return _dll.HP_Agent_GetFreeSocketObjPool( owner.pAgent ); 
     }
     
     _set = function(v){
-    	_dll.HP_Agent_SetFreeBufferObjPool( owner.pSocket, v );
+    	_dll.HP_Agent_SetFreeBufferObjPool( owner.pAgent, v );
     } 
 }
 
 freeSocketObjHold = {
     _get = function(){
-    	return _dll.HP_Agent_GetFreeBufferObjPool(owner.pSocket); 
+    	return _dll.HP_Agent_GetFreeBufferObjPool(owner.pAgent); 
     }
     
     _set = function(v){
-    	_dll.HP_Agent_SetFreeSocketObjHold(owner.pSocket, v);
+    	_dll.HP_Agent_SetFreeSocketObjHold(owner.pAgent, v);
     } 
 }
 
 freeBufferObjHold = {
     _get = function(){
-    	return _dll.HP_Agent_GetFreeBufferObjHold(owner.pSocket); 
+    	return _dll.HP_Agent_GetFreeBufferObjHold(owner.pAgent); 
     }
     
     _set = function(v){
-    	_dll.HP_Agent_SetFreeBufferObjHold(owner.pSocket, v);
+    	_dll.HP_Agent_SetFreeBufferObjHold(owner.pAgent, v);
     } 
 }
 
 maxConnectionCount = {
     _get = function(){
-    	return _dll.HP_Agent_GetMaxConnectionCount(owner.pSocket); 
+    	return _dll.HP_Agent_GetMaxConnectionCount(owner.pAgent); 
     }
     
     _set = function(v){
-    	_dll.HP_Agent_SetMaxConnectionCount(owner.pSocket, v);
+    	_dll.HP_Agent_SetMaxConnectionCount(owner.pAgent, v);
     } 
 }
 
 workerThreadCount = {
     _get = function(){
-    	return _dll.HP_Agent_GetWorkerThreadCount(owner.pSocket); 
+    	return _dll.HP_Agent_GetWorkerThreadCount(owner.pAgent); 
     }
     
     _set = function(v){
-    	_dll.HP_Agent_SetWorkerThreadCount(owner.pSocket, v);
+    	_dll.HP_Agent_SetWorkerThreadCount(owner.pAgent, v);
     } 
 }
 
 isMarkSilence = {
     _get = function(){
-    	return _dll.HP_Agent_IsMarkSilenceB(owner.pSocket); 
+    	return _dll.HP_Agent_IsMarkSilenceB(owner.pAgent); 
     }
     
     _set = function(v){
-    	_dll.HP_Agent_SetMarkSilence(owner.pSocket, v); 
+    	_dll.HP_Agent_SetMarkSilence(owner.pAgent, v); 
     }
-}
-
-reallocString = function(connId, size=0){
-	var ok, pExtra = owner.getConnectionExtra(connId); 
-	if( ok ){
-		return owner.setConnectionExtra(connId, ..raw.realloc(size, pExtra, "")); 	
-	} 
-}
-
-appendString = function(connId,pData,len){
-	var ok, pExtra = owner.getConnectionExtra(connId);
-	if(pExtra) 
-		return owner.setConnectionExtra(connId, ..raw.concat(pExtra, pData, len));  
-}
-
-getString = function(connId){
-	var ok, pExtra = owner.getConnectionExtra(connId); 
-	if(pExtra){
-		var size = ..raw.sizeof(pExtra);
-		if(size) return ..raw.tostring(pExtra, 1, size);
-	}
 }

@@ -27,5 +27,4 @@ class httpServer{
 	
 	@_metaProperty;
 }
-
 httpServer._metaProperty = ..util.metaProperty(..aaz.libhpsocket.component.properties.httpServer);

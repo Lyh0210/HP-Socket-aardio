@@ -1,7 +1,5 @@
 ﻿import aaz.libhpsocket.listener.tcpPullAgent;
 
-var _dll = aaz.libhpsocket._dll;
-
 namespace aaz.libhpsocket.ssl.listener;
 class tcpPullAgent{
 	ctor(){

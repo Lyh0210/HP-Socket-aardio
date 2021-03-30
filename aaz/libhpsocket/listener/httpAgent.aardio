@@ -8,11 +8,14 @@ namespace aaz.libhpsocket.listener;
 class httpAgent{
 	ctor(){
 		this = ..aaz.libhpsocket.listener();
-		this.componentClassPath = "component.httpAgent";
 		this.pListener = _dll.Create_HP_HttpAgentListenerP(); 
+		this.componentClassPath = "component.httpAgent";
 	}
 	
 	destroy = function(){
+		import win
+		win.msgbox(2)
+		
 		if(this.pListener){
 			_dll.Destroy_HP_HttpAgentListener(this.pListener);
 			this.pListener = null;

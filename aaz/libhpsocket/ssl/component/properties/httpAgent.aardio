@@ -2,9 +2,8 @@
 import aaz.libhpsocket.component.properties.httpAgent;
 
 namespace aaz.libhpsocket.ssl.component.properties.httpAgent;
-
 ..table.assign( 
 	self, 		
 	..aaz.libhpsocket.component.properties.httpAgent, 
 	..aaz.libhpsocket.ssl.component.properties.agent
-)
+);

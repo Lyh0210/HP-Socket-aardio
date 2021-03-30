@@ -1,9 +1,8 @@
 ﻿import aaz.libhpsocket;
-import aaz.libhpsocket.util.extra;
-
-var _dll = aaz.libhpsocket._dll;
 
 namespace aaz.libhpsocket.component.properties.server;
+
+var _dll = ..aaz.libhpsocket._dll;
 
 _topointer = function(){
     return owner.pSocket; 
@@ -308,15 +307,3 @@ getString = function(connId){
 		if( size ) return ..raw.tostring(pExtra,1,size );
 	}
 }
-
-bindExtra = function(connId, userData){
-	var ok, ptr = owner.getConnectionExtra(connId);
-	if(ok){
-		return ..aaz.libhpsocket.util.extra(ptr, userData); 
-	}	
-}
-
-setUserMeta = function(value){
-	..table.mixin(owner, value);
-	owner.userMeta = value;
-}	

@@ -2,7 +2,6 @@
 import aaz.libhpsocket.component.properties.httpClient;
 
 namespace aaz.libhpsocket.ssl.component.properties.httpClient;
-
 ..table.assign( 
 	self, 		
 	..aaz.libhpsocket.component.properties.httpClient, 

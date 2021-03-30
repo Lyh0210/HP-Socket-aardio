@@ -2,9 +2,8 @@
 import aaz.libhpsocket.component.properties.tcpPackServer;
 
 namespace aaz.libhpsocket.ssl.component.properties.tcpPackServer;
-
 ..table.assign( 
 	self, 		
 	..aaz.libhpsocket.component.properties.tcpPackServer, 
 	..aaz.libhpsocket.ssl.component.properties.agent
-)
+);

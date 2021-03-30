@@ -27,5 +27,4 @@ class tcpClient{
 	
 	@_metaProperty;
 }
-
 tcpClient._metaProperty = ..util.metaProperty(..aaz.libhpsocket.component.properties.tcpClient);

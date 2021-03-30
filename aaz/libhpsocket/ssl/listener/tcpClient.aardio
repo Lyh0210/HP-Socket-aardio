@@ -1,6 +1,4 @@
-﻿import aaz.libhpsocket.listener.client;
-
-var _dll = aaz.libhpsocket._dll;
+﻿import aaz.libhpsocket.listener.tcpClient;
 
 namespace aaz.libhpsocket.ssl.listener;
 class tcpClient{

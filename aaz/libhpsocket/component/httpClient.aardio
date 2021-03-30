@@ -27,5 +27,4 @@ class httpClient{
 	
 	@_metaProperty;
 }
-
 httpClient._metaProperty = ..util.metaProperty(..aaz.libhpsocket.component.properties.httpClient);

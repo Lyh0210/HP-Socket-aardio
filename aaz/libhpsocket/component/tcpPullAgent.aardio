@@ -5,27 +5,26 @@ var _dll = aaz.libhpsocket._dll;
 
 namespace aaz.libhpsocket.component;
 class tcpPullAgent{
-	ctor(listener, pSocket){
-		if(pSocket){
-			this.pSocket = pSocket;
+	ctor(listener, pAgent){
+		if(pAgent){
+			this.pAgent = pAgent;
 		}
 		elseif(listener){
-			this.pSocket = _dll.Create_HP_TcpPullAgentP(listener);
+			this.pAgent = _dll.Create_HP_TcpPullAgentP(listener);
 			..table.gc(this, "destroy");
 		}
 		else {
-			error("请指定参数@1 pSocket 或参数@2 pListener", 2);
+			error("请指定参数@1 pAgent 或参数@2 pListener", 2);
 		}
 	}
 	
 	destroy = function(){
-		if(this.pSocket){
-			_dll.Destroy_HP_TcpPullAgent(this.pSocket);
-			this.pSocket = null;
+		if(this.pAgent){
+			_dll.Destroy_HP_TcpPullAgent(this.pAgent);
+			this.pAgent = null;
 		}
 	}
 	
 	@_metaProperty;
 }
-
 tcpPullAgent._metaProperty = ..util.metaProperty(..aaz.libhpsocket.component.properties.tcpPullAgent);

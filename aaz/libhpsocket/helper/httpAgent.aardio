@@ -1,0 +1,31 @@
+﻿import aaz.libhpsocket.helper.websocket;
+
+namespace aaz.libhpsocket.helper.httpAgent;
+var wsHelper = ..aaz.libhpsocket.helper.websocket;
+
+sendWsUpgradeRequest = function(component, connId, path="/", saveWsUpgradeRequestKey){
+	if(!saveWsUpgradeRequestKey){
+		error("缺少@4 saveWsUpgradeRequestKey 函数参数",2);
+	}
+	
+	var urlHost = component.getUrlHost();
+	var url = component.getUrl(path);
+	var header, requestKey = wsHelper.genHeader(urlHost, url);
+	
+	if(component.sendGet(connId, path, header)){
+		saveWsUpgradeRequestKey(component, connId, requestKey);
+		return true; 
+	}
+}
+
+checkWsUpgradeResponse = function(component, connId, getWsUpgradeRequestKey){
+	if(!getWsUpgradeRequestKey){
+		error("缺少@3 getWsUpgradeRequestKey 函数参数",2);
+	}
+	
+	var acceptKey = component.getHeader(connId, "Sec-WebSocket-Accept");
+	if(!acceptKey) return ; 
+
+	var requestKey = getWsUpgradeRequestKey(component, connId);
+	if( wsHelper.getSecAccept(requestKey) == acceptKey ) return true;
+}

@@ -1,7 +1,5 @@
 ﻿import aaz.libhpsocket.listener.tcpServer;
 
-var _dll = aaz.libhpsocket._dll;
-
 namespace aaz.libhpsocket.ssl.listener;
 class tcpServer{
 	ctor(){

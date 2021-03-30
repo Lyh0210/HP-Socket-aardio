@@ -8,8 +8,8 @@ namespace aaz.libhpsocket.listener;
 class httpClient{
 	ctor(){
 		this = ..aaz.libhpsocket.listener();
-		this.componentClassPath = "component.httpClient"
 		this.pListener = _dll.Create_HP_HttpClientListenerP();
+		this.componentClassPath = "component.httpClient";
 	}
 	
 	destroy = function(){

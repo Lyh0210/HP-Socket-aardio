@@ -3,13 +3,12 @@ import aaz.libhpsocket.helper.websocket;
 import aaz.libhpsocket.helper.cookie;
 import aaz.libhpsocket.component.properties.tcpServer;
 
-var wsHelper =  aaz.libhpsocket.helper.websocket;
-var realloc = raw.realloc;
-var _dll = aaz.libhpsocket._dll;
-
 namespace aaz.libhpsocket.component.properties.httpServer;
-
 ..table.assign(self, ..aaz.libhpsocket.component.properties.tcpServer);
+
+var wsHelper =  ..aaz.libhpsocket.helper.websocket;
+var realloc = ..raw.realloc;
+var _dll = ..aaz.libhpsocket._dll;
 
 getUrl = function(path, scheme){
 	var ip, port = owner.getListenAddress();

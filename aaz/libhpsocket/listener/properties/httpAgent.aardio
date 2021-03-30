@@ -1,8 +1,7 @@
 ﻿import aaz.libhpsocket;
 
-var _dll = aaz.libhpsocket._dll;
-
 namespace aaz.libhpsocket.listener.properties.httpAgent;
+var _dll = ..aaz.libhpsocket._dll;
 
 _topointer = function(){
 	return owner.pListener;
@@ -39,7 +38,7 @@ onSend = {
 onReceive = {
 	_set = function(callback){
 		owner.OnReceiveCallback = owner.createThreadCallback(callback,"int(ptr pSender,ADDR connId,pointer pData, int length)");
-		_dll.HP_Set_FN_HttpAgent_OnReceive(owner.pListener, owner.OnReceiveCallback );
+		_dll.HP_Set_FN_HttpAgent_OnReceive(owner.pListener, owner.OnReceiveCallback);
 	} 	
 }
 
@@ -55,7 +54,8 @@ onShutdown = {
 		owner.OnShutdownCallback = owner.createThreadCallback(callback,"int(ptr pSender)");
 		_dll.HP_Set_FN_HttpAgent_OnShutdown(owner.pListener, owner.OnShutdownCallback);
 	} 	
-};
+}
+
 onMessageBegin = {
 	_set = function(callback){
 		owner.OnMessageBeginCallback = owner.createThreadCallback(callback,"int(ptr pSender,ADDR connId)");
@@ -81,7 +81,8 @@ onHeadersComplete = {
 		owner.OnHeadersCompleteCallback = owner.createThreadCallback(callback,"int(ptr pSender,ADDR connId)");
 		_dll.HP_Set_FN_HttpAgent_OnHeadersComplete(owner.pListener, owner.OnHeadersCompleteCallback); 
 	} 	
-};
+}
+
 onBody = {
 	_set = function(callback){
 		owner.OnBodyCallback = owner.createThreadCallback(callback,"int(ptr pSender,ADDR connId,ptr pData, int len)");

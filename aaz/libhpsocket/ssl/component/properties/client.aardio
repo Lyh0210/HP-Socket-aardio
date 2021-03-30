@@ -1,8 +1,7 @@
 ﻿import aaz.libhpsocket.ssl;
 
-var _dll = aaz.libhpsocket._dll;
-
 namespace aaz.libhpsocket.ssl.component.properties.client;
+var _dll = ..aaz.libhpsocket._dll;
 
 setupSSLContext = function(verifyMode=0, pemCertFile, pemKeyFile, keyPassword, caPemCertFileOrPath){
 	return !!_dll.HP_SSLClient_SetupSSLContextW(owner.pSocket, verifyMode, pemCertFile, pemKeyFile, keyPassword, caPemCertFileOrPath);
@@ -22,22 +21,22 @@ startSSLHandShake = function(){
 
 getSSLSessionInfo = function(sslSessionInfo){
 	var info = {ptr value}
-	return _dll.HP_SSLClient_GetSSLSessionInfoB( owner.pSocket, sslSessionInfo, info ); 
+	return _dll.HP_SSLClient_GetSSLSessionInfoB(owner.pSocket, sslSessionInfo, info); 
 }
 	
 isSSLAutoHandShake = {
     _get = function(){
-    	return _dll.HP_SSLClient_IsSSLAutoHandShakeB( owner.pSocket ); 
+    	return _dll.HP_SSLClient_IsSSLAutoHandShakeB(owner.pSocket); 
     }
     
-    _set = function( v ){
-    	_dll.HP_SSLClient_SetSSLAutoHandShake( owner.pSocket, v );
+    _set = function(v){
+    	_dll.HP_SSLClient_SetSSLAutoHandShake(owner.pSocket, v);
     } 
 }
 
 sslCipherList = {
     _get = function(){
-    	var p = _dll.HP_SSLClient_GetSSLCipherListP( owner.pSocket )
+    	var p = _dll.HP_SSLClient_GetSSLCipherListP(owner.pSocket)
     	if(p){
     		return ..raw.str(p,true); 	
     	}

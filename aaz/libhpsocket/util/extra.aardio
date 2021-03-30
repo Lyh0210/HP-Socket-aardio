@@ -1,24 +1,23 @@
 ﻿namespace aaz.libhpsocket.util;
 class extra{
-	ctor( ptr, userData ){
+	ctor(ptr, userData){
 		this = userData;
-		if( ptr ){
-			..raw.convert( ptr, this )
+		if(ptr){
+			..raw.convert(ptr, this);
 			this.ptr = ptr; 
 		}
 		else {				
-			this.ptr = ..raw.realloc( ..raw.sizeof(this), null, this ); 
+			this.ptr = ..raw.realloc(..raw.sizeof(this), null, this); 
+		}
+	}
+	
+	free = function(){
+		if(this.ptr){
+			this.ptr = ..raw.realloc(0, this.ptr);
 		}
 	}
 	
 	save = function(){
-		..raw.convert( this, this.ptr ) 
-	}
-	
-	free = function(){
-		if( this.ptr ){
-			this.ptr = ..raw.realloc( 0, this.ptr );
-		}
-	}
-} 
-
+		..raw.convert(this, this.ptr); 
+	}	
+}
