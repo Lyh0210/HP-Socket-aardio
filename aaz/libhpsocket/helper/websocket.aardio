@@ -1,6 +1,7 @@
 ﻿import crypt;
 import crypt.bin;
-import aaz.libhpsocket.helper.headers
+import aaz.libhpsocket.helper.headers;
+
 namespace aaz.libhpsocket.helper.websocket;
 
 sha1 = function(data){
@@ -19,14 +20,14 @@ genSecKey = function(){
 	return ..crypt.bin.encodeBase64(..string.random(16) );
 }
 
-genHeader = function(urlHost, url){
-	var headers = ..aaz.libhpsocket.helper.headers();
+genHeaders = function(host, origin, baseHeaders){
+	var headers = ..aaz.libhpsocket.helper.headers(baseHeaders);
 	var key = genSecKey();
 	headers.mix(
 		["Upgrade"] = "websocket";
 		["Connection"] = "Upgrade";
-		["Host"] = urlHost; 
-		["Sec-WebSocket-Origin"] = url;
+		["Host"] = host; 
+		["Sec-WebSocket-Origin"] = origin;
 		["Sec-WebSocket-Version"] = "13";
 		["Sec-WebSocket-Protocol"]  = "chat";
 		["Sec-WebSocket-Key"] = key; 

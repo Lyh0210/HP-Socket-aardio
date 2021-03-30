@@ -185,20 +185,3 @@ extra = {
 		_dll.HP_Client_SetExtra(owner.pSocket, v);
 	}
 }
-
-reallocString = function(size){
-	owner.extra = ..raw.realloc(size>0?size:0, owner.extra, "");
-}
-
-appendString = function(pData, len){
-	var extra = owner.extra; 
-	if(extra) owner.extra = ..raw.concat(extra, pData, len);  
-}
-
-getString = function(){
-	var extra = owner.extra;
-	if(extra) {
-		var size = ..raw.sizeof(extra); 
-		if(size) return ..raw.tostring(extra, 1, size);
-	}
-}

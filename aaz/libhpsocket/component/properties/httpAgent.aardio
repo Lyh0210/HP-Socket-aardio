@@ -329,22 +329,3 @@ isHttpAutoStart = {
     	_dll.HP_HttpAgent_SetHttpAutoStart(owner.pAgent, v);
     } 
 }
-
-getUrlHost = function(connId, path, scheme){
-	var ip, port = owner.getRemoteHost(connId);
-	if(!(ip&&port) )return;
-	if(ip=="0.0.0.0")ip = "localhost";
-	return  ..string.format("%s:%d",ip, port); 
-}
-
-getUrl = function(path, scheme){
-	var host = owner.getUrlHost();
-	if(!host) return;
-	var url =  ..string.format("%s://%s",scheme:"http",host ); 
-	if(path){
-		path = ..string.replace(path,"\\","/");
-		if(path[1]!='/'#) path= "/" + path;
-		return url + path;
-	}
-	return url;
-}

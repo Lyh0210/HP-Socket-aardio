@@ -1,27 +1,55 @@
 ﻿import aaz.libhpsocket.helper.websocket;
+import aaz.libhpsocket.helper.agent;
 
 namespace aaz.libhpsocket.helper.httpAgent;
 var wsHelper = ..aaz.libhpsocket.helper.websocket;
+var agentHelper = ..aaz.libhpsocket.helper.agent;
 
-sendWsUpgradeRequest = function(component, connId, path="/", saveWsUpgradeRequestKey){
-	if(!saveWsUpgradeRequestKey){
-		error("缺少@4 saveWsUpgradeRequestKey 函数参数",2);
+var defaultSaveWsUpgradeRequestKey = function(component, connId, key ){
+	agentHelper.reallocString(connId, #key);
+	agentHelper.appendString(connId, key, #key)
+}
+
+var defaultGetWsUpgradeRequestKey = function(component, connId){
+	var requestKey = owner.getString(connId); 
+	agentHelper.reallocString(connId, 0);
+	return requestKey; 
+}
+
+getUrlHost = function(component, connId){
+	var ip, port = component.getRemoteHost(connId);
+	if(!(ip&&port) )return;
+	if(ip=="0.0.0.0") ip = "localhost";
+	return ..string.format("%s:%d", ip, port); 
+}
+
+getUrl = function(component, connId, path, scheme="http"){
+	var host = getUrlHost(component, connId);
+	if(!host) return;
+	var url =  ..string.format("%s://%s", scheme, host ); 
+	if(path){
+		path = ..string.replace(path,"\\","/");
+		if(path[1]!='/'#) path= "/" + path;
+		return url + path;
 	}
+	return url;
+}
+
+sendWsUpgradeRequest = function(component, connId, path="/", baseHeaders, saveWsUpgradeRequestKey){
+	saveWsUpgradeRequestKey := defaultSaveWsUpgradeRequestKey;
 	
-	var urlHost = component.getUrlHost();
-	var url = component.getUrl(path);
-	var header, requestKey = wsHelper.genHeader(urlHost, url);
+	var host = getUrlHost(component, connId);
+	var origin = getUrl(component, connId, path);
+	var headers, requestKey = wsHelper.genHeaders(host, origin, baseHeaders);
 	
-	if(component.sendGet(connId, path, header)){
+	if(component.sendGet(connId, path, headers)){
 		saveWsUpgradeRequestKey(component, connId, requestKey);
 		return true; 
 	}
 }
 
 checkWsUpgradeResponse = function(component, connId, getWsUpgradeRequestKey){
-	if(!getWsUpgradeRequestKey){
-		error("缺少@3 getWsUpgradeRequestKey 函数参数",2);
-	}
+	getWsUpgradeRequestKey := defaultGetWsUpgradeRequestKey;
 	
 	var acceptKey = component.getHeader(connId, "Sec-WebSocket-Accept");
 	if(!acceptKey) return ; 
