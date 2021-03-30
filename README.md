@@ -148,12 +148,14 @@ listener.onWsMessageComplete = function(component, connId){
 listener.onClose = function(component, connId){
 	io.print("[onClose]", component, connId);
 	// 释放动态指针
-	aaz.libhpsocket.helper.client.reallocString(0);
+	aaz.libhpsocket.helper.client.reallocString(component, 0);
 }
 
 // 4. 创建组件并绑定监听器，第一个参数是监听器对象
 var componentBaidu = aaz.libhpsocket.ssl.component.httpClient(listener);
 var componentCnbeta = aaz.libhpsocket.ssl.component.httpClient(listener);
+
+io.print( componentBaidu.workerThreadCount )
 
 // 4.1 初始化 ssl 环境，并设置验证模式，默认不验证，即第一个参数为0
 componentBaidu.setupSSLContext(0);
