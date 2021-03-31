@@ -11,7 +11,7 @@ var defaultSaveWsUpgradeRequestKey = function(component, connId, key ){
 }
 
 var defaultGetWsUpgradeRequestKey = function(component, connId){
-	var requestKey = owner.getString(connId); 
+	var requestKey = component.getString(connId); 
 	agentHelper.reallocString(connId, 0);
 	return requestKey; 
 }

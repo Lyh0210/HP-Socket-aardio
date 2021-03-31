@@ -1,10 +1,9 @@
 ﻿import aaz.libhpsocket.component.properties.udpServer;
 
-var _dll = ..aaz.libhpsocket._dll;
-
 namespace aaz.libhpsocket.component.properties.udpArqServer;
-
 ..table.assign(self, ..aaz.libhpsocket.component.properties.udpServer);
+
+var _dll = ..aaz.libhpsocket._dll;
 
 getWaitingSendMessageCount = function(connID){
 	var count = {int v}

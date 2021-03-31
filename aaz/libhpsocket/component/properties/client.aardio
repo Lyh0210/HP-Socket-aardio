@@ -1,7 +1,6 @@
 ﻿import aaz.libhpsocket;
 
 namespace aaz.libhpsocket.component.properties.client;
-
 var _dll = ..aaz.libhpsocket._dll;
 
 _topointer = function(){

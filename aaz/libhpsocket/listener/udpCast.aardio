@@ -1,8 +1,8 @@
 ﻿import aaz.libhpsocket.listener.client;
 
-var _dll = aaz.libhpsocket._dll;
-
 namespace aaz.libhpsocket.listener;
+var _dll = ..aaz.libhpsocket._dll;
+
 class udpCast{
 	ctor(){
 		this = ..aaz.libhpsocket.listener.client();

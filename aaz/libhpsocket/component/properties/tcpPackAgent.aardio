@@ -2,6 +2,7 @@
 
 namespace aaz.libhpsocket.component.properties.tcpPackAgent;
 ..table.assign(self, ..aaz.libhpsocket.component.properties.tcpAgent);
+
 var _dll = ..aaz.libhpsocket._dll;
 
 maxPackSize = {
@@ -19,7 +20,7 @@ packHeaderFlag = {
     	return 0xFFFF & _dll.HP_TcpPackAgent_GetPackHeaderFlag(owner.pSocket);
     }
     
-    _set = function( v ){
+    _set = function(v){
     	_dll.HP_TcpPackAgent_SetPackHeaderFlag(owner.pSocket, v);
     } 	
 }	

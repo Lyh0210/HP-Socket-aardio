@@ -4,13 +4,13 @@ import aaz.libhpsocket.helper.cookie;
 import aaz.libhpsocket.component.properties.tcpClient;
 
 namespace aaz.libhpsocket.component.properties.httpClient;
-..table.assign(self, ..aaz.libhpsocket.component.properties.tcpClient);
+..table.mix(self, ..aaz.libhpsocket.component.properties.tcpClient);
 
-var wsHelper =  ..aaz.libhpsocket.helper.websocket;
-var realloc = ..raw.realloc;
 var _dll = ..aaz.libhpsocket._dll;
+var wsHelper = ..aaz.libhpsocket.helper.websocket;
+var realloc = ..raw.realloc;
 
-sendRequest = function(body, path, headers, method = "GET"){
+sendRequest = function(method="GET", path, headers, body){
 	headers = ..aaz.libhpsocket.helper.headers(headers)
 	return 	_dll.HP_HttpClient_SendRequestB(owner.pSocket, method, path, headers.struct(), headers.length(), body, #body);
 }
@@ -160,7 +160,7 @@ getAllCookies = function(){
 	return cookies.array;	
 }
 
-getWsMessageState = function(final, reserved, operationCode, mask, bodyLen){
+getWsMessageState = function(){
 	var final = {bool value};
 	var reserved = {BYTE value};
 	var operationCode = {BYTE value};

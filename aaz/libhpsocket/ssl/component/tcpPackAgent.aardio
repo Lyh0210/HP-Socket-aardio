@@ -1,9 +1,9 @@
 ﻿import util.metaProperty;
 import aaz.libhpsocket.ssl.component.properties.tcpPackAgent;
 
-var _dll = aaz.libhpsocket._dll;
-
 namespace aaz.libhpsocket.ssl.component;
+var _dll = ..aaz.libhpsocket._dll;
+
 class tcpPackAgent{
 	ctor(listener, pAgent){
 		if(pAgent){

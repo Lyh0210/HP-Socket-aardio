@@ -2,6 +2,7 @@
 
 namespace aaz.libhpsocket.component.properties.tcpPullAgent;
 ..table.assign(self, ..aaz.libhpsocket.component.properties.tcpAgent);
+
 var _dll = ..aaz.libhpsocket._dll;
 
 fetch = function(connId, buf, len){ 
@@ -21,7 +22,7 @@ peek = function(connId, buf, len){
 	if(len){
 		
 	}
-	elseif( buf[["_struct"]] ){
+	elseif(buf[["_struct"]]){
 		len = ..raw.sizeof(buf)
 	}
 	else {

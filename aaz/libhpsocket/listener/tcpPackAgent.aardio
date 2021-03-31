@@ -1,8 +1,8 @@
 ﻿import aaz.libhpsocket.listener.agent;
 
-var _dll = aaz.libhpsocket._dll;
-
 namespace aaz.libhpsocket.listener;
+var _dll = ..aaz.libhpsocket._dll;
+
 class tcpPackAgent{
 	ctor(){
 		this = ..aaz.libhpsocket.listener.agent();

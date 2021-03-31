@@ -1,10 +1,9 @@
 ﻿import aaz.libhpsocket.component.properties.server;
 
-var _dll = aaz.libhpsocket._dll;
-
 namespace aaz.libhpsocket.component.properties.udpServer;
-
 ..table.assign(self, ..aaz.libhpsocket.component.properties.server);
+
+var _dll = ..aaz.libhpsocket._dll;
 
 maxDatagramSize = {
     _get = function(){

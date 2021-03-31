@@ -1,9 +1,9 @@
 ﻿import util.metaProperty;
 import aaz.libhpsocket.ssl.component.properties.httpServer;
 
-var _dll = aaz.libhpsocket._dll;
-
 namespace aaz.libhpsocket.ssl.component;
+var _dll = ..aaz.libhpsocket._dll;
+
 class httpServer{
 	ctor(listener, pSocket){
 		if(pSocket){

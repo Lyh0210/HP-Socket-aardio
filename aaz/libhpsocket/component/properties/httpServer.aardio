@@ -6,9 +6,9 @@ import aaz.libhpsocket.component.properties.tcpServer;
 namespace aaz.libhpsocket.component.properties.httpServer;
 ..table.assign(self, ..aaz.libhpsocket.component.properties.tcpServer);
 
-var wsHelper =  ..aaz.libhpsocket.helper.websocket;
-var realloc = ..raw.realloc;
 var _dll = ..aaz.libhpsocket._dll;
+var wsHelper = ..aaz.libhpsocket.helper.websocket;
+var realloc = ..raw.realloc;
 
 getUrl = function(path, scheme){
 	var ip, port = owner.getListenAddress();
@@ -55,7 +55,7 @@ sendWsSwitchingProtocols = function(connId, headers, protocol){
 	return owner.sendResponse(connId,null,headers,101/*HSC_SWITCHING_PROTOCOLS*/,null)	
 }
 
-sendResponse = function(connId,body, headers, statusCode=200, lpszDesc){
+sendResponse = function(connId, statusCode=200, lpszDesc, headers, body){
 	headers = ..aaz.libhpsocket.helper.headers(headers);
 	return _dll.HP_HttpServer_SendResponseB(owner.pSocket, connId, statusCode, lpszDesc, headers.struct(), headers.length(), body, #body);
 }
@@ -83,8 +83,17 @@ sendWsMessage = function(connId, data, opCode, final=true, bodyLen=0, reserved){
 		error("sendWsMessage 参数2 data 格式有误",2)
 	}
 	
-    var pData = realloc(len,,data); 
-	var r = _dll.HP_HttpServer_SendWSMessageB( owner.pSocket, connId, final, reserved, opCode, pData, len, ..math.size64(len + bodyLen) );
+    var pData = realloc(len, null, data); 
+	var r = _dll.HP_HttpServer_SendWSMessageB( 
+		owner.pSocket, 
+		connId, 
+		final, 
+		reserved, 
+		opCode, 
+		pData, 
+		len, 
+		..math.size64(len + bodyLen) 
+	);
 	realloc(0, pData);
 	return r;
 }
@@ -97,8 +106,8 @@ getUrlFieldSet = function(connId){
 	return 0xFFFF & _dll.HP_HttpServer_GetUrlFieldSet(owner.pSocket,connId);
 } 
 
-getUrlField = function(connId,enField){
-	var s = _dll.HP_HttpServer_GetUrlFieldP(owner.pSocket,connId,enField);
+getUrlField = function(connId, enField){
+	var s = _dll.HP_HttpServer_GetUrlFieldP(owner.pSocket, connId, enField);
 	if(s) return ..raw.str(s);
 }
 
@@ -116,11 +125,11 @@ getRequestUri = function(connId){
 }
 
 isUpgrade = function(connId){
-	return _dll.HP_HttpServer_IsUpgradeB(owner.pSocket,connId);
+	return _dll.HP_HttpServer_IsUpgradeB(owner.pSocket, connId);
 }
 
 isKeepAlive = function(connId){
-	return _dll.HP_HttpServer_IsKeepAliveB(owner.pSocket,connId);
+	return _dll.HP_HttpServer_IsKeepAliveB(owner.pSocket, connId);
 }
 
 getVersion = function(){
@@ -128,7 +137,7 @@ getVersion = function(){
 }
 
 getHost = function(connId){
-	var p = _dll.HP_HttpServer_GetHostP(owner.pSocket,connId);
+	var p = _dll.HP_HttpServer_GetHostP(owner.pSocket, connId);
 	if(p) return ..raw.str(p);
 }
 
@@ -161,51 +170,63 @@ getParseErrorCode = function(connId){
 	return errno,errdesc.value;
 }
 
-getHeader = function(connId,name){
-	var s = {string value};
-	return _dll.HP_HttpServer_GetHeaderB(owner.pSocket,connId,name,s), s.value;
+getHeader = function(connId, name){
+	var value = {string value};
+	_dll.HP_HttpServer_GetHeaderB(owner.pSocket, connId, name, value);
+	return value.value;
 }
 
-getHeaders = function(connId,name){
-	var s = {string array[] = {INT length} };
-	_dll.HP_HttpServer_GetHeaders( owner.pSocket,connId, name, null, s.array);
-	if( s.array.length == 0 ){
-		return true, s.array; 
+getHeaders = function(connId, name){
+	var values = {string array[] = {INT length} };
+	
+	_dll.HP_HttpServer_GetHeaders( owner.pSocket, connId, name, null, values.array);
+	if( values.array.length == 0 ){
+		return null; 
 	}
-	return _dll.HP_HttpServer_GetHeadersB( owner.pSocket,connId, name, s, s.array), s.array;
+	
+	_dll.HP_HttpServer_GetHeadersB( owner.pSocket, connId, name, values, values.array);
+	return values.array;
 }
 
 getAllHeaders = function(connId){
-	var hdrs = ..aaz.libhpsocket.helper.headers(); 
-	_dll.HP_HttpServer_GetAllHeaders(owner.pSocket,connId,null,hdrs.array)
-	if( hdrs.array.length == 0 ){
-		return true, hdrs.array; 
+	var headers = ..aaz.libhpsocket.helper.headers(); 
+	
+	_dll.HP_HttpServer_GetAllHeaders(owner.pSocket, connId, null, headers.array);
+	if(headers.array.length == 0){
+		return null; 
 	}
 	
-	return _dll.HP_HttpServer_GetAllHeaders(owner.pSocket,connId,hdrs.struct(),hdrs.array), hdrs.array;
+	_dll.HP_HttpServer_GetAllHeaders(owner.pSocket, connId, headers.struct(), headers.array);
+	return headers.array;
 }
 
 getAllHeaderNames = function(connId){
-	var s = {string array[] = {INT length} };
-	_dll.HP_HttpServer_GetAllHeaderNames(owner.pSocket,connId,null,s.array);
-	if( s.array.length == 0 ){
-		return true, s.array; 
+	var names = { string array[] = {INT length} };
+	_dll.HP_HttpServer_GetAllHeaderNames(owner.pSocket, connId, null, names.array);
+	if( names.array.length == 0 ){
+		return null; 
 	}
-	return _dll.HP_HttpServer_GetAllHeaderNames(owner.pSocket,connId,s,s.array),  s.array;
+	
+	_dll.HP_HttpServer_GetAllHeaderNames(owner.pSocket, connId, names, names.array);
+	return names.array;
 }
 
-getCookie = function(connId,name){
-	var s = {string value};
-	return _dll.HP_HttpServer_GetCookie(owner.pSocket,connId,name,s), s.value;
+getCookie = function(connId, name){
+	var cookie = {string value};
+	_dll.HP_HttpServer_GetCookie(owner.pSocket,connId,name,cookie);
+	return cookie.value;
 }
 
 getAllCookies = function(connId){
 	var cookies = ..aaz.libhpsocket.helper.cookie();
-	_dll.HP_HttpServer_GetAllCookies(owner.pSocket,connId,null,cookies.array);
-	if( cookies.array.length == 0 ){
-		return true, cookies.array; 
+	
+	_dll.HP_HttpServer_GetAllCookies(owner.pSocket,connId, null, cookies.array);
+	if(cookies.array.length == 0){
+		return null; 
 	}
-	return _dll.HP_HttpServer_GetAllCookies(owner.pSocket,connId,cookies,cookies.array), cookies.array;
+	
+	_dll.HP_HttpServer_GetAllCookies(owner.pSocket, connId, cookies, cookies.array);
+	return cookies.array;
 }
 
 getWsMessageState = function(connId){
@@ -216,7 +237,7 @@ getWsMessageState = function(connId){
 	var bodyLen = {LONG value}
 	var bodyRemain = {LONG value} 
 	
-	if( _dll.HP_HttpServer_GetWSMessageState(owner.pSocket,connId,final,reserved ,opCode,mask,bodyLen,bodyRemain ) ){
+	if(_dll.HP_HttpServer_GetWSMessageState(owner.pSocket, connId, final, reserved, opCode, mask, bodyLen, bodyRemain)){
 		return{
 			final = final.value;
 			reserved = reserved.value;

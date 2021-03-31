@@ -1,8 +1,7 @@
 ﻿import aaz.libhpsocket;
 
-var _dll = aaz.libhpsocket._dll;
-
 namespace aaz.libhpsocket.listener.properties.udpNode;
+var _dll = ..aaz.libhpsocket._dll;
 
 _topointer = function(){
 	return owner.pListener;

@@ -2,6 +2,7 @@
 
 namespace aaz.libhpsocket.component.properties.tcpPackClient;
 ..table.assign(self, ..aaz.libhpsocket.component.properties.tcpClient);
+
 var _dll = ..aaz.libhpsocket._dll;
 
 maxPackSize = {

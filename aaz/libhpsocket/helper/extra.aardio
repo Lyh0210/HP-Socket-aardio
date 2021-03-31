@@ -1,2 +1,5 @@
 ﻿
 namespace aaz.libhpsocket.helper.extra;
+bind = function(extra, userdata){
+	return ; 
+}

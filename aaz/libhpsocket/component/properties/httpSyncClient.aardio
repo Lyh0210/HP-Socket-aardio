@@ -1,9 +1,11 @@
 ﻿import aaz.libhpsocket;
 import aaz.libhpsocket.helper.headers;
-
-var _dll = ..aaz.libhpsocket._dll;
+import aaz.libhpsocket.component.properties.httpClient;
 
 namespace aaz.libhpsocket.component.properties.httpSyncClient;
+..table.mix(self, ..aaz.libhpsocket.component.properties.httpClient);
+
+var _dll = ..aaz.libhpsocket._dll;
 
 openUrl = function(method="GET", url, headers, body, forceReconnect=false){
 	if(!headers){
@@ -13,7 +15,6 @@ openUrl = function(method="GET", url, headers, body, forceReconnect=false){
 		}
 	}
 	headers = ..aaz.libhpsocket.helper.headers(headers);
-	
 	return _dll.HP_HttpSyncClient_OpenUrlB(owner.pSocket, method, url, headers.struct(), headers.length(), body, #body, forceReconnect); 
 }
 

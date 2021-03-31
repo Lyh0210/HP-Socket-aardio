@@ -1,6 +1,6 @@
 import win.ui;
 /*DSG{{*/
-var winform = win.form(text="aardio form";right=466;bottom=144)
+var winform = win.form(text="ssl http client";right=466;bottom=144)
 winform.add(
 btnBaidu={cls="button";text="访问 baidu (chunk 传输)";left=11;top=14;right=201;bottom=45;z=1};
 btnCnbeta={cls="button";text="访问 cnbeta ";left=263;top=16;right=441;bottom=44;z=2};

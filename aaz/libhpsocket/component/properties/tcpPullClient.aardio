@@ -1,16 +1,15 @@
 ﻿import aaz.libhpsocket.component.properties.tcpClient;
 
-var _dll = aaz.libhpsocket._dll;
-
 namespace aaz.libhpsocket.component.properties.tcpPullClient;
+..table.assign(self, ..aaz.libhpsocket.component.properties.tcpClient);
 
-..table.assign( self, ..aaz.libhpsocket.component.properties.tcpClient );
+var _dll = ..aaz.libhpsocket._dll;
 
 fetch = function(buf,len){ 
 	if(len){
 		
 	}
-	elseif( buf[["_struct"]] ){
+	elseif(buf[["_struct"]]){
 		len = ..raw.sizeof(buf)
 	}
 	else {
@@ -23,7 +22,7 @@ peek = function(buf,len){
 	if(len){
 		
 	}
-	elseif( buf[["_struct"]] ){
+	elseif(buf[["_struct"]]){
 		len = ..raw.sizeof(buf)
 	}
 	else {

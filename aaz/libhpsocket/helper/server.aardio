@@ -1,4 +1,21 @@
 ﻿
-namespace aaz.libhpsocket.helper.server{
-	
+namespace aaz.libhpsocket.helper.server;
+reallocString = function(component, connId, size){
+	var ok, pExtra = component.getConnectionExtra(connId);
+	if(ok){
+		return component.setConnectionExtra(connId,..raw.realloc(size>0?size:0,pExtra,""));; 
+	}	
+}
+
+appendString = function(component, connId, pData, len){
+	var ok, pExtra = component.getConnectionExtra(connId);
+	if(pExtra) return component.setConnectionExtra(connId, ..raw.concat(pExtra, pData, len));  
+}
+
+getString = function(component, connId){
+	var ok, pExtra = component.getConnectionExtra(connId);
+	if(pExtra) {
+		var size = ..raw.sizeof(pExtra);
+		if( size ) return ..raw.tostring(pExtra, 1, size);
+	}
 }

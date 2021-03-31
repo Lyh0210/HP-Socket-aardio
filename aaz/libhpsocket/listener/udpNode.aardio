@@ -2,9 +2,9 @@
 import aaz.libhpsocket.listener;
 import aaz.libhpsocket.listener.properties.udpNode;
 
-var _dll = aaz.libhpsocket._dll;
-
 namespace aaz.libhpsocket.listener;
+var _dll = ..aaz.libhpsocket._dll;
+
 class udpNode{
 	ctor(){
 		this = ..aaz.libhpsocket.listener();

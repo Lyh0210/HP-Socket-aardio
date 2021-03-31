@@ -2,9 +2,9 @@
 import aaz.libhpsocket.listener;
 import aaz.libhpsocket.listener.properties.httpAgent;
 
-var _dll = aaz.libhpsocket._dll;
-
 namespace aaz.libhpsocket.listener;
+var _dll = ..aaz.libhpsocket._dll;
+
 class httpAgent{
 	ctor(){
 		this = ..aaz.libhpsocket.listener();
@@ -13,9 +13,6 @@ class httpAgent{
 	}
 	
 	destroy = function(){
-		import win
-		win.msgbox(2)
-		
 		if(this.pListener){
 			_dll.Destroy_HP_HttpAgentListener(this.pListener);
 			this.pListener = null;

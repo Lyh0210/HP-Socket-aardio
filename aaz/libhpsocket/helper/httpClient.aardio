@@ -2,17 +2,18 @@
 import aaz.libhpsocket.helper.client;
 
 namespace aaz.libhpsocket.helper.httpClient;
+..table.mix(self, ..aaz.libhpsocket.helper.client);
+
 var wsHelper = ..aaz.libhpsocket.helper.websocket;
-var clientHelper = ..aaz.libhpsocket.helper.client;
 
 var defaultSaveWsUpgradeRequestKey = function(component, key ){
-	clientHelper.reallocString(component, #key);
-	clientHelper.appendString(component, key,#key)
+	self.reallocString(component, #key);
+	appendString(component, key,#key)
 }
 
 var defaultGetWsUpgradeRequestKey = function(component){
-	var requestKey = clientHelper.getString(component); 
-	clientHelper.reallocString(component, 0);
+	var requestKey = getString(component); 
+	self.reallocString(component, 0);
 	return requestKey; 
 }
 
@@ -24,7 +25,7 @@ getUrlHost = function(component){
 }
 
 getUrl = function(component, path, scheme="http"){
-	var host = getUrlHost(component);
+	var host = self.getUrlHost(component);
 	if(!host) return;
 	var url =  ..string.format("%s://%s", scheme, host ); 
 	if(path){
@@ -38,8 +39,8 @@ getUrl = function(component, path, scheme="http"){
 sendWsUpgradeRequest = function(component, path="/", baseHeaders, saveWsUpgradeRequestKey){
 	saveWsUpgradeRequestKey := defaultSaveWsUpgradeRequestKey;
 	
-	var host = getUrlHost();
-	var origin = getUrl(path);
+	var host = self.getUrlHost(component);
+	var origin = self.getUrl(component, path);
 	var headers, requestKey = wsHelper.genHeaders(host, origin, baseHeaders);
 	
 	if(component.sendGet(path, headers)){

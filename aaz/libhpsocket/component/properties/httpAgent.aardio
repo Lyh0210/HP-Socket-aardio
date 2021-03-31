@@ -4,9 +4,10 @@ import aaz.libhpsocket.component.properties.tcpAgent;
 
 namespace aaz.libhpsocket.component.properties.httpAgent;
 ..table.assign(self, ..aaz.libhpsocket.component.properties.tcpAgent);
+
 var _dll = ..aaz.libhpsocket._dll;
 
-sendRequest = function(connId, method="GET", path, body, headers){
+sendRequest = function(connId, method="GET", path, headers, body){
 	headers = ..aaz.libhpsocket.helper.headers( headers );
 	return _dll.HP_HttpAgent_SendRequestB(
 			owner.pAgent, 
@@ -213,7 +214,7 @@ getParseErrorCode = function(connId){
 
 getHeader = function(connId, name){
 	var value = {string value};
-	_dll.HP_HttpAgent_GetHeaderB(owner.pAgent, connId, name, value)
+	_dll.HP_HttpAgent_GetHeaderB(owner.pAgent, connId, name, value);
 	return value.value;
 }
 
